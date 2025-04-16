@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useSectionInView } from '@/lib/hooks';
 import Contact from '@/components/Contact';
@@ -44,7 +45,7 @@ export default function HomePage() {
         viewport={{ once: true }}
         custom={0} // Animation index
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 ">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Ship Reliable Web Apps Faster
         </h1>
         <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -52,14 +53,20 @@ export default function HomePage() {
           Performance, SOC2 Prep) for SaaS, Fintech, and E-commerce.
         </p>
         <Link
-          href="#contact"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium"
+          href="/your-consultation-booking-page"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 active:scale-95 transition-all duration-150 ease-in-out"
         >
-          Schedule Consultation
+          Schedule Your Free Consultation Now
         </Link>
-        {/* Placeholder for visual element */}
-        <div className="mt-10 h-32 bg-gray-200 rounded flex items-center justify-center text-gray-500">
-          [Professional Graphic/Image Placeholder]
+        {/* Wrapper div for panoramic image effect - Added padding/centering */}
+        <div className="mt-10 relative w-11/12 h-50 mx-auto overflow-hidden rounded-lg shadow-md">
+          <Image
+            src="/images/hero-4.png"
+            alt="Abstract graphic representing software reliability and efficient testing processes"
+            layout="fill" // Fill the wrapper div
+            objectFit="cover" // Cover the area, cropping excess
+            priority // Keep priority for LCP
+          />
         </div>
       </motion.section>
 
@@ -67,39 +74,42 @@ export default function HomePage() {
       <motion.section
         ref={problemRef}
         id="problem-solution"
-        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28" // Added scroll-mt and mb
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 p-4" // Added scroll-mt and mb
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         custom={1}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Overcome Your Testing Challenges
+        <h2 className="text-3xl font-bold text-center text-gray-800  dark:text-gray-100 mb-8">
+          Solve Your Software Quality Challenges
         </h2>
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h3 className="text-xl font-semibold text-gray-700 mb-4">
+            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
               Common Pain Points:
             </h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-600">
-              <li>Struggling with flaky tests slowing down releases?</li>
-              <li>Worried about meeting WCAG accessibility standards?</li>
-              <li>Need documented test evidence for SOC2 audits?</li>
-              <li>Lacking bandwidth for thorough performance testing?</li>
-              <li>Insufficient QA hindering user adoption?</li>
+            <ul className="list-inside text-lg space-y-2 text-gray-600 dark:text-gray-300">
+              <li>❌ Bugs slowing down releases?</li>
+              <li>❌ Meeting WCAG accessibility standards?</li>
+              <li>❌ Documenting test evidence for audits?</li>
+              <li>❌ Bandwidth for performance testing?</li>
+              <li>❌ Errors hindering user adoption?</li>
+              <li>❌ Features lacking Unit Testing?</li>
             </ul>
           </div>
-          <div className="bg-green-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-700 mb-4">
+          <div className="bg-green-100 p-6 rounded-lg font-semibold text-lg">
+            <h3 className="text-xl font-semibold text-green-800 mb-4">
               Our Solution:
             </h3>
-            <p className="text-gray-600">
-              We build stable, maintainable test suites (Cypress/Playwright),
-              provide expert Accessibility audits, implement Performance
-              testing, and support SOC2 readiness – tailored to your project
-              needs.
-            </p>
+            <ul className="list-inside  text-green-800">
+              <li>✅ Stable end-to-end test suites.</li>
+              <li>✅ Unit tests in Jest/Vitest.</li>
+              <li>✅ Test scenarios for team use.</li>
+              <li>✅ SOC2 and WCAG readiness.</li>
+              <li>✅ Digestible audit documentation.</li>
+              <li>✅ Ongoing test maintenance.</li>
+            </ul>
           </div>
         </div>
       </motion.section>
@@ -108,7 +118,7 @@ export default function HomePage() {
       <motion.section
         ref={servicesRef}
         id="services"
-        className="w-full max-w-[50rem] py-12 bg-gray-100 rounded-lg mb-28 scroll-mt-28" // Adjusted bg, added scroll-mt and mb
+        className="w-full max-w-[50rem] py-12 bg-gray-100 rounded-lg mb-28 scroll-mt-28"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
@@ -118,141 +128,321 @@ export default function HomePage() {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
           Our Core Services
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          {/* Service Card 1 */}
+        <div className="grid md:grid-cols-3 gap-8 text-center px-4">
+          {/* Service Card 1 - UPDATED */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-            <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
+            <Image
+              src="/images/icon-1.png"
+              alt="Test Automation Icon"
+              width={84}
+              height={74}
+              className="mx-auto mb-3" // Center icon and maintain margin
+            />
+            {/* Updated Title */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              Test Automation
+              Test Automation & Migration
             </h3>
-            <p className="text-gray-600 text-sm">
-              Cypress, Playwright, Jest/Vitest. Aiming for 80%+ coverage.
-            </p>
+            {/* Replaced <p> with <ul> */}
+            <ul className="text-gray-600 text-sm space-y-1 text-left">
+              {' '}
+              {/* Use text-left for list items */}
+              <li>✓ New suite setup (Cypress, Playwright, etc.)</li>
+              <li>✓ Existing suite optimization & expansion</li>
+              <li>
+                ✓{' '}
+                <strong className="font-medium">
+                  Framework Migration (e.g., RSpec to Cypress)
+                </strong>
+              </li>
+              <li>✓ Unit Testing (Jest / Vitest)</li>
+              <li>✓ Coverage goals tailored to your needs</li>
+            </ul>
           </div>
-          {/* Service Card 2 */}
+          {/* Service Card 2 - Content format unchanged for now, review if needed */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-            <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
+            <Image
+              src="/images/icon-2.png"
+              alt="Essential Documentation Icon"
+              width={84}
+              height={84}
+              className="mx-auto mb-3" // Center icon and maintain margin
+            />
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Essential Documentation
             </h3>
             <p className="text-gray-600 text-sm">
-              TestRail integration, How-To Guides, GWT Scenarios.
+              TestRail or Xray integration, How-To Guides, non-technical
+              Given-When-Then Scenarios.
             </p>
           </div>
-          {/* Service Card 3 */}
+          {/* Service Card 3 - Content format unchanged for now, review if needed */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-            <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
+            <Image
+              src="/images/icon-3.png"
+              alt="Specialized Testing Icon"
+              width={84}
+              height={84}
+              className="mx-auto mb-3" // Center icon and maintain margin
+            />
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Specialized Testing
             </h3>
             <p className="text-gray-600 text-sm">
-              Accessibility (WCAG AA), Performance (Load/Stress), SOC2 Prep
-              (Tiers Available).
+              Accessibility (WCAG AA) (Tiers Available), Performance
+              (Load/Stress), SOC2 Prep (Tiers Available).
             </p>
           </div>
         </div>
         {/* Key Tools Sub-section */}
         <div className="mt-10 text-center">
           <h4 className="text-lg font-semibold text-gray-700 mb-4">
-            Key Tools We Master:
+            Tools We Excel With:
           </h4>
-          <p className="text-gray-600 text-sm">
-            Cypress, Playwright, Jest, Vitest, TestRail, Axe-core, k6, JMeter
-          </p>
-          {/* Consider adding logos later */}
+          <div className="flex justify-center items-center flex-wrap gap-4 md:gap-6 mb-4">
+            <Image
+              src="/images/logo-cypress.png"
+              alt="Cypress"
+              width={70}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-vitest.png"
+              alt="Vitest"
+              width={70}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-testrail.png"
+              alt="TestRail"
+              width={48}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-loadforge.png"
+              alt="LoadForge"
+              width={70}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+          </div>
+          <div className="flex justify-center items-center flex-wrap gap-4 md:gap-6">
+            <Image
+              src="/images/logo-rspec.png"
+              alt="RSpec"
+              width={68}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-playwright.png"
+              alt="Playwright"
+              width={52}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-jest.jpeg"
+              alt="Jest"
+              width={48}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+
+            <Image
+              src="/images/logo-xray.png"
+              alt="Xray"
+              width={48}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+            <Image
+              src="/images/logo-jmeter.png"
+              alt="JMeter"
+              width={70}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+
+            <Image
+              src="/images/logo-axe.png"
+              alt="Axe-core"
+              width={48}
+              height={48}
+              className="max-h-12 w-auto"
+            />
+          </div>
         </div>
       </motion.section>
 
-      {/* Why Choose Us Section */}
+      {/* Why Choose Us Section - Ensure consistent padding/margins */}
       <motion.section
         ref={whyUsRef}
         id="why-us"
-        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28"
+        // Added bg, padding for context - Ensure p-8 is present
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 rounded-lg p-8"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         custom={3}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+        <h2 className="text-3xl font-bold text-center text-white mb-12">
+          {' '}
+          {/* Ensure mb-12 */}
           Why Partner with Testing Edge?
         </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-4 text-gray-600">
+        <div className="grid md:grid-cols-2 gap-x-8 gap-y-6">
+          {/* Column 1: Experience & Technical Prowess */}
+          <div className="space-y-5 text-gray-300">
+            {' '}
+            {/* Adjusted spacing & text color */}
             <p>
-              <strong>10+ Years Experience:</strong> Proven track record across
-              diverse web projects.
+              <strong className="text-white block mb-1 text-lg">
+                Decade of Diverse Experience:
+              </strong>{' '}
+              Successfully delivered robust testing solutions across demanding
+              sectors like{' '}
+              <strong className="font-semibold">
+                FinTech, E-commerce, and Social Media platforms
+              </strong>
+              .
             </p>
             <p>
-              <strong>Modern Tooling Expertise:</strong> Specialized in Cypress,
-              Playwright for faster, reliable results.
+              <strong className="text-white block mb-1 text-lg">
+                Modern Automation Mastery:
+              </strong>{' '}
+              Expertise in{' '}
+              <strong className="font-semibold">
+                Cypress, TypeScript, Playwright, RSpec, and CI/CD integration
+              </strong>
+              . This focus can significantly enhance test reliability and
+              accelerate feedback loops.
             </p>
             <p>
-              <strong>Focus on ROI:</strong> Building maintainable assets and
-              clear documentation, enabling your teams.
+              <strong className="text-white block mb-1 text-lg">
+                Full-Stack Testing Perspective:
+              </strong>{' '}
+              We consider the entire development lifecycle, enabling more
+              effective testing strategies that consider both frontend and
+              backend implications.
+            </p>
+            <p>
+              <strong className="text-white block mb-1 text-lg">
+                Proactive Problem Solving:
+              </strong>{' '}
+              Don't just find bugs,{' '}
+              <strong className="font-semibold">
+                resolve client-facing issues
+              </strong>{' '}
+              and proactively improve core QA processes to prevent future
+              problems.
             </p>
           </div>
-          <div className="space-y-4 text-gray-600">
+          {/* Column 2: Process, Value & Recognition */}
+          <div className="space-y-5 text-gray-300">
             <p>
-              <strong>Comprehensive Approach:</strong> Holistic QA combining
-              Automation, Documentation, and Specialized Services.
+              <strong className="text-white block mb-1 text-lg">
+                Holistic Quality Focus:
+              </strong>{' '}
+              Services extend beyond test scripts to include{' '}
+              <strong className="font-semibold">
+                {' '}
+                establishing documentation standards (TestRail, Gherkin, JSDoc),
+                enhancing team workflows (Jira), and specialized testing like
+                Accessibility
+              </strong>
+              .
             </p>
             <p>
-              <strong>Direct Collaboration:</strong> Work directly with an
-              experienced solo consultant.
+              <strong className="text-white block mb-1 text-lg">
+                Foundation Building Expertise:
+              </strong>{' '}
+              Skilled in setting up entire QA ecosystems from scratch –
+              including repositories, documentation, Jira workflows, and
+              deployment processes – drastically reducing friction for
+              development teams.
             </p>
             <p>
-              <strong>Structured & Transparent:</strong> Predictable process
-              using defined scopes and clear communication.
+              <strong className="text-white block mb-1 text-lg">
+                Direct Access & Credibility:
+              </strong>{' '}
+              Collaborate directly with a recognized{' '}
+              <strong className="font-semibold">Cypress Ambassador</strong>,
+              ensuring you benefit from cutting-edge knowledge and a commitment
+              to quality acknowledged by industry leaders.
+            </p>
+            <p>
+              <strong className="text-white block mb-1 text-lg">
+                Transparent & Collaborative Process:
+              </strong>{' '}
+              Leverages{' '}
+              <strong className="font-semibold">Agile methodologies</strong> for
+              clear communication, defined scopes, and a partnership approach
+              focused on delivering tangible ROI and enabling your team's
+              success.
             </p>
           </div>
         </div>
       </motion.section>
 
-      {/* Process Section */}
+      {/* Process Section - Updated with Card Styling */}
       <motion.section
         ref={processRef}
         id="process"
-        className="w-full max-w-[50rem] py-12 bg-gray-200 rounded-lg mb-28 scroll-mt-28"
+        // Use bg-gray-100 for a cleaner light theme, ensure consistent padding
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-100 rounded-lg p-8"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         custom={4}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+        {/* Ensure consistent heading margin */}
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Our Engagement Process
         </h2>
-        <div className="grid md:grid-cols-4 gap-8 text-center">
-          <div className="p-4">
-            <div className="text-2xl font-bold text-blue-600 mb-2">1</div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-1">
+        {/* Use gap-6 for consistency */}
+        <div className="grid md:grid-cols-4 gap-6 text-center">
+          {/* Step 1 Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center">
+            {/* Make number larger and bolder */}
+            <div className="text-5xl font-bold text-blue-600 mb-3">1</div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
               Discovery Call
             </h3>
             <p className="text-sm text-gray-600">
               Discuss goals, stack, scope & challenges (Free).
             </p>
           </div>
-          <div className="p-4">
-            <div className="text-2xl font-bold text-blue-600 mb-2">2</div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-1">
+
+          {/* Step 2 Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center">
+            <div className="text-5xl font-bold text-blue-600 mb-3">2</div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
               Tailored Proposal
             </h3>
             <p className="text-sm text-gray-600">
-              Receive a detailed SOW & quote.
+              Receive a detailed summary of work & quote (free).
             </p>
           </div>
-          <div className="p-4">
-            <div className="text-2xl font-bold text-blue-600 mb-2">3</div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-1">
+
+          {/* Step 3 Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center">
+            <div className="text-5xl font-bold text-blue-600 mb-3">3</div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
               Execution & Delivery
             </h3>
             <p className="text-sm text-gray-600">
-              Build/implement with regular updates.
+              Build/implement with regular updates, virtually or in-person.
             </p>
           </div>
-          <div className="p-4">
-            <div className="text-2xl font-bold text-blue-600 mb-2">4</div>
+
+          {/* Step 4 Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center">
+            <div className="text-5xl font-bold text-blue-600 mb-3">4</div>
             <h3 className="text-lg font-semibold text-gray-700 mb-1">
               Handover & Support
             </h3>
@@ -263,25 +453,135 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Post-Project Support Section */}
+      {/* Post-Project Support Section - EXPANDED CONTENT */}
       <motion.section
         ref={supportRef}
         id="support"
-        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28"
+        // Match background with "Why Us" or choose another contrasting one
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 rounded-lg p-8"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         custom={5}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
-          Ongoing Support & Maintenance
+        <h2 className="text-3xl font-bold text-center text-white mb-6">
+          Protect Your Investment: Ongoing Support
         </h2>
-        <p className="text-center text-gray-600 max-w-2xl mx-auto">
-          Flexible options for test suite updates, maintenance, and evolving
-          needs. We ensure your testing assets remain valuable long-term.
+        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
+          Your test automation suite is a valuable asset. To ensure it continues
+          to deliver ROI as your application evolves, we offer structured
+          support options beyond the initial project delivery.
         </p>
-        {/* Add details or link if needed */}
+
+        {/* Included Warranty Section */}
+        <div className="mb-12 bg-gray-700 p-6 rounded-lg shadow-md">
+          <h3 className="text-2xl font-semibold text-white mb-3">
+            Included Project Warranty (1 Month)
+          </h3>
+          <p className="text-gray-300 mb-2">
+            Confidence in our work is key. Every project includes a{' '}
+            <strong className="font-semibold text-white">
+              complimentary 1-month warranty
+            </strong>{' '}
+            covering fixes for any defects found directly within the test
+            suites, framework setup, or documentation delivered by Testing Edge.
+          </p>
+          <p className="text-sm text-gray-400">
+            (Scope: Up to 10 hours, focused on our deliverables. Excludes
+            application code changes, environment issues, or new feature
+            testing.)
+          </p>
+        </div>
+
+        {/* Paid Support Packages Section */}
+        <h3 className="text-2xl font-semibold text-center text-white mb-8">
+          Flexible Support Packages (Post-Warranty)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Package 1: Essential Maintenance */}
+          <div className="bg-gray-700 p-6 rounded-lg border border-gray-600 flex flex-col">
+            <h4 className="text-xl font-semibold text-white mb-3">
+              Essential Maintenance
+            </h4>
+            <p className="text-sm text-gray-400 mb-4 italic">
+              Best for: Stability checks & minor fixes.
+            </p>
+            <ul className="text-gray-300 space-y-2 text-sm mb-4 flex-grow">
+              <li>✓ Up to 10 hours/month</li>
+              <li>✓ Fixes for minor test flakiness</li>
+              <li>✓ Basic test run monitoring</li>
+              <li>✓ Standard email support</li>
+            </ul>
+            <p className="text-white font-semibold text-lg mt-auto">
+              $1,500 / month
+            </p>
+            <p className="text-xs text-gray-400">(1 Month Commitment)</p>
+          </div>
+
+          {/* Package 2: Growth & Stability (Highlighted) */}
+          <div className="bg-blue-700 p-6 rounded-lg border-2 border-blue-400 shadow-lg flex flex-col ring-2 ring-blue-300 ring-offset-2 ring-offset-gray-800">
+            {' '}
+            {/* Highlight styling */}
+            <span className="text-xs font-bold uppercase text-white bg-blue-500 px-2 py-1 rounded-full self-start mb-3">
+              Most Popular
+            </span>
+            <h4 className="text-xl font-semibold text-white mb-3">
+              Growth & Stability
+            </h4>
+            <p className="text-sm text-blue-100 mb-4 italic">
+              Best for: Active development cycles needing regular upkeep.
+            </p>
+            <ul className="text-blue-50 space-y-2 text-sm mb-4 flex-grow">
+              <li>
+                ✓ <strong className="font-medium">~13 hours/month</strong> (40
+                total)
+              </li>
+              <li>✓ Includes Essential scope</li>
+              <li>✓ Updates for moderate UI/API changes</li>
+              <li>✓ Testing for 1-2 minor new features</li>
+              <li>✓ Priority email support</li>
+              <li>✓ Monthly health check summary</li>
+            </ul>
+            <p className="text-white font-semibold text-lg mt-auto">
+              $1,450 / month
+            </p>
+            <p className="text-xs text-blue-200">
+              ($4,200 total - 3 Month Commitment)
+            </p>
+          </div>
+
+          {/* Package 3: Strategic Partnership */}
+          <div className="bg-gray-700 p-6 rounded-lg border border-gray-600 flex flex-col">
+            <h4 className="text-xl font-semibold text-white mb-3">
+              Strategic Partnership
+            </h4>
+            <p className="text-sm text-gray-400 mb-4 italic">
+              Best for: Long-term strategy & proactive optimization.
+            </p>
+            <ul className="text-gray-300 space-y-2 text-sm mb-4 flex-grow">
+              <li>
+                ✓ <strong className="font-medium">~15 hours/month</strong> (90
+                total)
+              </li>
+              <li>✓ Includes Growth scope</li>
+              <li>✓ Proactive test optimization</li>
+              <li>✓ Monthly strategy call participation</li>
+              <li>✓ Highest priority support (Slack/Direct)</li>
+              <li>✓ Detailed monthly reporting</li>
+            </ul>
+            <p className="text-white font-semibold text-lg mt-auto">
+              $1,575 / month
+            </p>
+            <p className="text-xs text-gray-400">
+              ($9,450 total - 6 Month Commitment)
+            </p>
+          </div>
+        </div>
+        <p className="text-center text-gray-400 text-sm mt-10">
+          Package details and pricing are indicative. Specific terms are
+          discussed and tailored during project handover or upon request.
+        </p>
       </motion.section>
 
       {/* Final CTA Section - Now designated as the 'Contact' target */}
@@ -307,6 +607,18 @@ export default function HomePage() {
         >
           Schedule Your Free Consultation Now
         </Link>
+        {/* Wrapper div styled with repeating background image */}
+        <div
+          className="mt-10 relative w-10/12 h-50 mx-auto overflow-hidden rounded-lg shadow-md"
+          style={{
+            backgroundImage: 'url(/images/hero-3.png)',
+            backgroundRepeat: 'repeat-x',
+            backgroundPosition: 'center center',
+            backgroundSize: 'contain', // Scales image height to fit container height
+          }}
+        >
+          {/* Image component removed, using CSS background instead */}
+        </div>
       </motion.section>
 
       {/* CONTACT FORM SECTION - Rendered after the CTA block */}
