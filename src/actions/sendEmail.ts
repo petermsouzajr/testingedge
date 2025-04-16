@@ -2,14 +2,20 @@
 
 import React from 'react';
 import { Resend } from 'resend';
+import type { CreateEmailResponse } from 'resend'; // Import the type
 import { validateString, getErrorMessage } from '@/lib/utils'; // Assuming you have or will create validation utils
 import ContactFormEmail from '@/components/emails/contact-form-email';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Define the expected return type for the action
+// Remove the custom type definition
+// type ResendSuccessResponse = {
+//   id: string;
+// };
+
+// Update the return type interface using the imported type
 interface SendEmailResult {
-  data?: any; // Type depends on Resend success response, often { id: string }
+  data?: CreateEmailResponse; // Use the type from the library
   error?: string;
 }
 

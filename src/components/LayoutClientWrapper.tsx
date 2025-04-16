@@ -27,7 +27,7 @@ export default function LayoutClientWrapper({
     if (!headerElement) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         // Type check before accessing offsetHeight
         if (
           entry.target === headerElement &&

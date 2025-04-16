@@ -38,8 +38,8 @@ export default function Contact() {
       </h2>
       {/* Replaced direct email paragraph with inquiry guidance */}
       <p className="text-gray-700 -mt-6 dark:text-white/80">
-        We'd love to hear from you! Drop your questions or comments below, and
-        we'll get back to you soon.
+        We&apos;d love to hear from you! Drop your questions or comments below,
+        and we&apos;ll get back to you soon.
       </p>
 
       <form
@@ -47,7 +47,7 @@ export default function Contact() {
         className="mt-10 flex flex-col dark:text-black"
         action={async (formData) => {
           // Use the server action
-          const { data, error } = await sendEmail(formData);
+          const { error } = await sendEmail(formData);
 
           if (error) {
             toast.error(error);

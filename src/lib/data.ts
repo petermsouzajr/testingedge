@@ -1,4 +1,4 @@
-import React from 'react'; // Import React if using icons later
+// Import React if using icons later
 
 export const links = [
   {
