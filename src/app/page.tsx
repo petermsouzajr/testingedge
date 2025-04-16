@@ -28,7 +28,7 @@ export default function HomePage() {
   const { ref: servicesRef } = useSectionInView('Services');
   const { ref: whyUsRef } = useSectionInView('Why Us');
   const { ref: processRef } = useSectionInView('Process');
-  const { ref: supportRef } = useSectionInView('Support', 0.5);
+  const { ref: supportRef } = useSectionInView('Support');
   // Track the final CTA section as 'Contact' for navigation
   const { ref: contactRef } = useSectionInView('Contact');
 
