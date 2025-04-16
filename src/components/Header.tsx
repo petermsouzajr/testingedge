@@ -1,130 +1,85 @@
-'use client'; // Needed for state (mobile menu toggle)
+'use client';
 
-import { useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { links } from '@/lib/data';
 import Link from 'next/link';
+import clsx from 'clsx';
+import { useActiveSectionContext } from '@/context/active-section-context';
+import type { SectionName } from '@/lib/types';
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { activeSection, setActiveSection, setTimeOfLastClick } =
+    useActiveSectionContext();
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  // Helper function for link clicks
+  const handleLinkClick = (linkName: SectionName) => {
+    setActiveSection(linkName);
+    setTimeOfLastClick(Date.now());
   };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-gray-800">
-          Testing Edge
-        </Link>
+    <header className="z-[999] relative">
+      <motion.div
+        className="fixed top-0 left-1/2 h-[4.5rem] w-full rounded-none border border-white border-opacity-40 bg-white bg-opacity-80 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem] 
+                   sm:top-6 sm:h-[3.25rem] sm:w-auto sm:max-w-[45rem] sm:rounded-full"
+        initial={{ y: -100, x: '-50%', opacity: 0 }}
+        animate={{ y: 0, x: '-50%', opacity: 1 }}
+      ></motion.div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            onClick={toggleMobileMenu}
-            className="text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            {/* Hamburger Icon */}
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+      <nav className="flex fixed top-[0.15rem] left-1/2 h-12 -translate-x-1/2 py-2 sm:top-[1.7rem] sm:h-[initial] sm:py-0">
+        <ul
+          className="flex w-full flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 
+                      sm:w-[initial] sm:flex-nowrap sm:gap-5"
+        >
+          {links.map((link) => (
+            <motion.li
+              className="relative flex items-center justify-center h-3/4"
+              key={link.hash}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={
-                  isMobileMenuOpen
-                    ? 'M6 18L18 6M6 6l12 12'
-                    : 'M4 6h16M4 12h16m-7 6h7'
-                }
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Link
-            href="/#services"
-            className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              <Link
+                className={clsx(
+                  'flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition',
+                  {
+                    'text-gray-950': activeSection === link.name,
+                  }
+                )}
+                href={link.hash}
+                onClick={() => handleLinkClick(link.name)}
+              >
+                {link.name}
+                {link.name === activeSection && (
+                  <motion.span
+                    className="bg-gray-100 rounded-full absolute inset-0 -z-10"
+                    layoutId="activeSection"
+                    transition={{
+                      type: 'spring',
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  ></motion.span>
+                )}
+              </Link>
+            </motion.li>
+          ))}
+          <motion.li
+            className="relative flex items-center justify-center h-3/4 ml-4"
+            key="#contact-cta"
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
           >
-            Services
-          </Link>
-          <Link
-            href="/#why-us"
-            className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Why Us
-          </Link>
-          <Link
-            href="/#process"
-            className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Process
-          </Link>
-          <Link
-            href="/#support"
-            className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Support
-          </Link>
-          <Link
-            href="#contact"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium ml-4"
-          >
-            Schedule Consultation
-          </Link>
-          {/* Replace #contact with actual link/modal trigger later */}
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-40">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              href="/#services"
-              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-              onClick={toggleMobileMenu}
-            >
-              Services
-            </Link>
-            <Link
-              href="/#why-us"
-              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-              onClick={toggleMobileMenu}
-            >
-              Why Us
-            </Link>
-            <Link
-              href="/#process"
-              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-              onClick={toggleMobileMenu}
-            >
-              Process
-            </Link>
-            <Link
-              href="/#support"
-              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-              onClick={toggleMobileMenu}
-            >
-              Support
-            </Link>
             <Link
               href="#contact"
-              className="mt-2 block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium"
-              onClick={toggleMobileMenu}
+              onClick={() => handleLinkClick('Contact')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap"
             >
               Schedule Consultation
             </Link>
-          </div>
-        </div>
-      )}
+          </motion.li>
+        </ul>
+      </nav>
     </header>
   );
 }

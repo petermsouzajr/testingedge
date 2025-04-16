@@ -1,12 +1,48 @@
+/* eslint-disable react/no-unescaped-entities */
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useSectionInView } from '@/lib/hooks';
+
+// Simple fade-in animation variant
+const fadeInAnimationVariants = {
+  initial: {
+    opacity: 0,
+    y: 100, // Start slightly below
+  },
+  animate: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.05 * index, // Stagger animation based on index
+    },
+  }),
+};
 
 export default function HomePage() {
+  // Use the hook for each section
+  const { ref: heroRef } = useSectionInView('Hero', 0.5);
+  const { ref: problemRef } = useSectionInView('Problem');
+  const { ref: servicesRef } = useSectionInView('Services');
+  const { ref: whyUsRef } = useSectionInView('Why Us');
+  const { ref: processRef } = useSectionInView('Process');
+  const { ref: supportRef } = useSectionInView('Support');
+  const { ref: contactRef } = useSectionInView('Contact');
+
   return (
-    <div className="space-y-16">
+    // Adjusted width and centering based on new layout
+    <div className="flex flex-col items-center px-4 w-full">
       {/* Hero Section */}
-      <section
+      <motion.section
+        ref={heroRef}
         id="hero"
-        className="text-center py-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg"
+        className="w-full max-w-[50rem] text-center py-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg mb-28 scroll-mt-[100rem]" // Added scroll-mt and mb
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={0} // Animation index
       >
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Ship Reliable Web Apps Faster
@@ -25,10 +61,19 @@ export default function HomePage() {
         <div className="mt-10 h-32 bg-gray-200 rounded flex items-center justify-center text-gray-500">
           [Professional Graphic/Image Placeholder]
         </div>
-      </section>
+      </motion.section>
 
       {/* Problem / Solution Section */}
-      <section id="problem-solution" className="py-12">
+      <motion.section
+        ref={problemRef}
+        id="problem-solution"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28" // Added scroll-mt and mb
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={1}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Overcome Your Testing Challenges
         </h2>
@@ -57,16 +102,25 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Services Overview Section */}
-      <section id="services" className="py-12 bg-gray-50 rounded-lg">
+      <motion.section
+        ref={servicesRef}
+        id="services"
+        className="w-full max-w-[50rem] py-12 bg-gray-100 rounded-lg mb-28 scroll-mt-28" // Adjusted bg, added scroll-mt and mb
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={2}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
           Our Core Services
         </h2>
         <div className="grid md:grid-cols-3 gap-8 text-center">
           {/* Service Card 1 */}
-          <div className="p-6 border border-gray-200 rounded-lg shadow-sm">
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Test Automation
@@ -76,7 +130,7 @@ export default function HomePage() {
             </p>
           </div>
           {/* Service Card 2 */}
-          <div className="p-6 border border-gray-200 rounded-lg shadow-sm">
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Essential Documentation
@@ -86,7 +140,7 @@ export default function HomePage() {
             </p>
           </div>
           {/* Service Card 3 */}
-          <div className="p-6 border border-gray-200 rounded-lg shadow-sm">
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <div className="text-blue-600 mb-3">[Icon]</div> {/* Placeholder */}
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Specialized Testing
@@ -107,10 +161,19 @@ export default function HomePage() {
           </p>
           {/* Consider adding logos later */}
         </div>
-      </section>
+      </motion.section>
 
       {/* Why Choose Us Section */}
-      <section id="why-us" className="py-12">
+      <motion.section
+        ref={whyUsRef}
+        id="why-us"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={3}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
           Why Partner with Testing Edge?
         </h2>
@@ -144,10 +207,19 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Process Section */}
-      <section id="process" className="py-12 bg-gray-50 rounded-lg">
+      <motion.section
+        ref={processRef}
+        id="process"
+        className="w-full max-w-[50rem] py-12 bg-gray-100 rounded-lg mb-28 scroll-mt-28"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={4}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
           Our Engagement Process
         </h2>
@@ -189,10 +261,19 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Post-Project Support Section */}
-      <section id="support" className="py-12">
+      <motion.section
+        ref={supportRef}
+        id="support"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={5}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Ongoing Support & Warranty
         </h2>
@@ -222,12 +303,18 @@ export default function HomePage() {
             scope and pricing.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Final CTA Section */}
-      <section
+      <motion.section
+        ref={contactRef}
         id="contact"
-        className="py-16 bg-blue-600 text-white rounded-lg text-center"
+        className="w-full max-w-[50rem] py-16 bg-blue-600 text-white rounded-lg text-center mb-28 scroll-mt-28" // Added scroll-mt and mb
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={6}
       >
         <h2 className="text-3xl font-bold mb-4">
           Ready to Improve Your Software Quality?
@@ -244,9 +331,14 @@ export default function HomePage() {
         </Link>
         {/* Placeholder for a potential contact form or direct email */}
         <div id="contact-form" className="mt-8 text-blue-100 text-sm">
-          (Contact Form / Email Link Placeholder)
+          <p>
+            Contact us via email:{' '}
+            <a href="mailto:placeholder@example.com" className="underline">
+              placeholder@example.com
+            </a>
+          </p>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
