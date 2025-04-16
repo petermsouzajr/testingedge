@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ActiveSectionContextProvider from '@/context/active-section-context';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth">
       <body
-        className={`${inter.className} flex flex-col min-h-screen bg-gray-50 text-gray-950 relative pt-24 md:pt-[calc(1.5rem+3.25rem+1rem)]`}
+        className={`${inter.className} flex flex-col min-h-screen bg-gray-50 text-gray-950 relative pt-20 md:pt-[calc(1.5rem+3.25rem+1rem)]`}
       >
         <ActiveSectionContextProvider>
           <Header />
@@ -29,6 +30,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster position="top-right" />
         </ActiveSectionContextProvider>
       </body>
     </html>

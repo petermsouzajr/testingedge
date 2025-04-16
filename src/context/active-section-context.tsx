@@ -18,7 +18,7 @@ export default function ActiveSectionContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [activeSection, setActiveSection] = useState<SectionName>('Hero'); // Default active section
+  const [activeSection, setActiveSection] = useState<SectionName>('Problem'); // Default active section
   // We need to keep track of the last click time to disable observer temporarily when user clicks a link
   const [timeOfLastClick, setTimeOfLastClick] = useState(0);
 

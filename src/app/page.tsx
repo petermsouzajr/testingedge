@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useSectionInView } from '@/lib/hooks';
+import Contact from '@/components/Contact';
 
 // Simple fade-in animation variant
 const fadeInAnimationVariants = {
@@ -21,13 +22,13 @@ const fadeInAnimationVariants = {
 };
 
 export default function HomePage() {
-  // Use the hook for each section
-  const { ref: heroRef } = useSectionInView('Hero', 0.5);
+  // Use the hook for each section *except* Hero
   const { ref: problemRef } = useSectionInView('Problem');
   const { ref: servicesRef } = useSectionInView('Services');
   const { ref: whyUsRef } = useSectionInView('Why Us');
   const { ref: processRef } = useSectionInView('Process');
   const { ref: supportRef } = useSectionInView('Support');
+  // Track the final CTA section as 'Contact' for navigation
   const { ref: contactRef } = useSectionInView('Contact');
 
   return (
@@ -35,16 +36,15 @@ export default function HomePage() {
     <div className="flex flex-col items-center px-4 w-full">
       {/* Hero Section */}
       <motion.section
-        ref={heroRef}
         id="hero"
-        className="w-full max-w-[50rem] text-center py-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg mb-28 scroll-mt-[100rem]" // Added scroll-mt and mb
+        className="w-full max-w-[50rem] text-center sm:mt-0 mt-20 py-16 bg-gray-200 rounded-lg mb-28 scroll-mt-[100rem]"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         custom={0} // Animation index
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 ">
           Ship Reliable Web Apps Faster
         </h1>
         <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -213,7 +213,7 @@ export default function HomePage() {
       <motion.section
         ref={processRef}
         id="process"
-        className="w-full max-w-[50rem] py-12 bg-gray-100 rounded-lg mb-28 scroll-mt-28"
+        className="w-full max-w-[50rem] py-12 bg-gray-200 rounded-lg mb-28 scroll-mt-28"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
@@ -274,42 +274,21 @@ export default function HomePage() {
         viewport={{ once: true }}
         custom={5}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Ongoing Support & Warranty
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+          Ongoing Support & Maintenance
         </h2>
-        <div className="text-center max-w-3xl mx-auto">
-          <p className="text-gray-600 mb-4">
-            All projects include a <strong>1-Month Project Warranty</strong>{' '}
-            covering the delivered test suites and documentation for peace of
-            mind.
-          </p>
-          <p className="text-gray-600 mb-6">
-            Need ongoing help after the warranty? We offer tiered support
-            packages to keep your tests healthy as your application evolves:
-          </p>
-          <div className="flex justify-center space-x-4 mb-6">
-            <span className="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
-              Essential Maintenance
-            </span>
-            <span className="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
-              Growth & Stability
-            </span>
-            <span className="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">
-              Strategic Partnership
-            </span>
-          </div>
-          <p className="text-gray-600">
-            Ask about our support options during your consultation for detailed
-            scope and pricing.
-          </p>
-        </div>
+        <p className="text-center text-gray-600 max-w-2xl mx-auto">
+          Flexible options for test suite updates, maintenance, and evolving
+          needs. We ensure your testing assets remain valuable long-term.
+        </p>
+        {/* Add details or link if needed */}
       </motion.section>
 
-      {/* Final CTA Section */}
+      {/* Final CTA Section - Now designated as the 'Contact' target */}
       <motion.section
-        ref={contactRef}
-        id="contact"
-        className="w-full max-w-[50rem] py-16 bg-blue-600 text-white rounded-lg text-center mb-28 scroll-mt-28" // Added scroll-mt and mb
+        ref={contactRef} // Add ref back
+        id="contact" // Set ID back to contact
+        className="w-full max-w-[50rem] py-16 bg-blue-700 text-white rounded-lg text-center mb-28 scroll-mt-28" // Changed bg-gray-800 back towards blue, using darker bg-blue-800
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
@@ -320,25 +299,18 @@ export default function HomePage() {
           Ready to Improve Your Software Quality?
         </h2>
         <p className="text-lg mb-8 max-w-2xl mx-auto">
-          Meet compliance needs and release with confidence. Let's discuss how
-          Testing Edge can help.
+          Let's discuss how Testing Edge can help.
         </p>
         <Link
-          href="#contact-form"
-          className="bg-white hover:bg-gray-100 text-blue-700 px-8 py-3 rounded-md text-lg font-medium"
+          href="#contact-form" // Link to the form ID below
+          className="inline-block bg-gray-100 hover:bg-white text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
         >
           Schedule Your Free Consultation Now
         </Link>
-        {/* Placeholder for a potential contact form or direct email */}
-        <div id="contact-form" className="mt-8 text-blue-100 text-sm">
-          <p>
-            Contact us via email:{' '}
-            <a href="mailto:placeholder@example.com" className="underline">
-              placeholder@example.com
-            </a>
-          </p>
-        </div>
       </motion.section>
+
+      {/* CONTACT FORM SECTION - Rendered after the CTA block */}
+      <Contact />
     </div>
   );
 }

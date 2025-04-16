@@ -2,10 +2,6 @@ import React from 'react'; // Import React if using icons later
 
 export const links = [
   {
-    name: 'Hero',
-    hash: '#hero',
-  },
-  {
     name: 'Problem', // Shortened for header space
     hash: '#problem-solution',
   },

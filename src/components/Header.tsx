@@ -19,67 +19,65 @@ export default function Header() {
   };
 
   return (
-    <header className="z-[999] relative">
-      <motion.div
-        className="fixed top-0 left-1/2 h-[4.5rem] w-full rounded-none border border-white border-opacity-40 bg-white bg-opacity-80 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem] 
-                   sm:top-6 sm:h-[3.25rem] sm:w-auto sm:max-w-[45rem] sm:rounded-full"
-        initial={{ y: -100, x: '-50%', opacity: 0 }}
-        animate={{ y: 0, x: '-50%', opacity: 1 }}
-      ></motion.div>
+    <motion.header
+      className="z-[999] fixed top-0 left-0 right-0 flex justify-center" // Use flex to center the nav inside
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+    >
+      {/* Combined Background and Nav Container */}
+      <div
+        className="mt-0 sm:mt-6 w-full sm:w-auto max-w-3xl 
+                   px-4 py-2 
+                   rounded-none sm:rounded-full
+                   border border-white border-opacity-40
+                   bg-white/80 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem]"
+      >
+        <nav className="w-full">
+          <ul className="flex w-full items-center justify-center flex-wrap gap-x-4 gap-y-2 text-[0.9rem] font-medium text-gray-700">
+            {links.map((link) => {
+              const isContactLink = link.name === 'Contact';
+              const linkText = isContactLink ? 'Consultation' : link.name;
+              const isActive = activeSection === link.name;
 
-      <nav className="flex fixed top-[0.15rem] left-1/2 h-12 -translate-x-1/2 py-2 sm:top-[1.7rem] sm:h-[initial] sm:py-0">
-        <ul
-          className="flex w-full flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 
-                      sm:w-[initial] sm:flex-nowrap sm:gap-5"
-        >
-          {links.map((link) => (
-            <motion.li
-              className="relative flex items-center justify-center h-3/4"
-              key={link.hash}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-            >
-              <Link
-                className={clsx(
-                  'flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition',
-                  {
-                    'text-gray-950': activeSection === link.name,
-                  }
-                )}
-                href={link.hash}
-                onClick={() => handleLinkClick(link.name)}
-              >
-                {link.name}
-                {link.name === activeSection && (
-                  <motion.span
-                    className="bg-gray-100 rounded-full absolute inset-0 -z-10"
-                    layoutId="activeSection"
-                    transition={{
-                      type: 'spring',
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  ></motion.span>
-                )}
-              </Link>
-            </motion.li>
-          ))}
-          <motion.li
-            className="relative flex items-center justify-center h-3/4 ml-4"
-            key="#contact-cta"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-          >
-            <Link
-              href="#contact"
-              onClick={() => handleLinkClick('Contact')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap"
-            >
-              Schedule Consultation
-            </Link>
-          </motion.li>
-        </ul>
-      </nav>
-    </header>
+              return (
+                <motion.li
+                  className="relative flex items-center justify-center"
+                  key={link.hash}
+                >
+                  <Link
+                    className={clsx(
+                      'block px-3 py-1 transition sm:whitespace-nowrap rounded-full',
+                      {
+                        'hover:text-gray-950': !isActive,
+                        'bg-blue-600 hover:bg-blue-700 text-white':
+                          isContactLink,
+                        'text-gray-950 font-semibold':
+                          isActive && !isContactLink,
+                      }
+                    )}
+                    href={link.hash}
+                    onClick={() => handleLinkClick(link.name as SectionName)}
+                  >
+                    {linkText}
+                    {isActive && (
+                      <motion.span
+                        // Use desired blue highlight
+                        className="bg-blue-100 outline-1 outline-blue-600 rounded-full absolute inset-0 -z-10"
+                        layoutId="activeSection"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      ></motion.span>
+                    )}
+                  </Link>
+                </motion.li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </motion.header>
   );
 }
