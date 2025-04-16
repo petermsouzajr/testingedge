@@ -28,7 +28,7 @@ export default function HomePage() {
   const { ref: servicesRef } = useSectionInView('Services');
   const { ref: whyUsRef } = useSectionInView('Why Us');
   const { ref: processRef } = useSectionInView('Process');
-  const { ref: supportRef } = useSectionInView('Support');
+  const { ref: supportRef } = useSectionInView('Support', 0.5);
   // Track the final CTA section as 'Contact' for navigation
   const { ref: contactRef } = useSectionInView('Contact');
 
@@ -48,13 +48,13 @@ export default function HomePage() {
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Ship Reliable Web Apps Faster
         </h1>
-        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 mb-8 max-w-2xl sm:mx-auto mx-2">
           Expert Test Automation, Documentation, & Compliance Testing (WCAG,
           Performance, SOC2 Prep) for SaaS, Fintech, and E-commerce.
         </p>
         <Link
           href="/your-consultation-booking-page"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 active:scale-95 transition-all duration-150 ease-in-out"
+          className="bg-blue-600 inline-block hover:bg-blue-700 mx-2  text-white px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 active:scale-95 transition-all duration-150 ease-in-out"
         >
           Schedule Your Free Consultation Now
         </Link>
@@ -603,13 +603,13 @@ export default function HomePage() {
         </p>
         <Link
           href="#contact-form" // Link to the form ID below
-          className="inline-block bg-gray-100 hover:bg-white text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
+          className="inline-block bg-gray-100 hover:bg-white mx-2 text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
         >
           Schedule Your Free Consultation Now
         </Link>
         {/* Wrapper div styled with repeating background image */}
         <div
-          className="mt-10 relative w-10/12 h-50 mx-auto overflow-hidden rounded-lg shadow-md"
+          className="mt-10 relative w-10/12 h-50 mx-auto overflow-hidden rounded-lg sm:shadow-md"
           style={{
             backgroundImage: 'url(/images/hero-3.png)',
             backgroundRepeat: 'repeat-x',

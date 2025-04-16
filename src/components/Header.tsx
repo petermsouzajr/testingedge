@@ -12,10 +12,30 @@ export default function Header() {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
-  // Helper function for link clicks
-  const handleLinkClick = (linkName: SectionName) => {
+  // Helper function for link clicks (updates active section state)
+  const handleLinkClickState = (linkName: SectionName) => {
     setActiveSection(linkName);
     setTimeOfLastClick(Date.now());
+  };
+
+  // Enhanced click handler for smooth scrolling
+  const handleSmoothScrollClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+    linkName: SectionName
+  ) => {
+    handleLinkClickState(linkName); // Update active section state first
+
+    const targetId = sectionId.startsWith('#')
+      ? sectionId.substring(1)
+      : sectionId;
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      event.preventDefault(); // Prevent default hash jump ONLY if target exists
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // If targetElement doesn't exist for some reason, let the default href behavior proceed.
   };
 
   return (
@@ -56,7 +76,13 @@ export default function Header() {
                       }
                     )}
                     href={link.hash}
-                    onClick={() => handleLinkClick(link.name as SectionName)}
+                    onClick={(e) =>
+                      handleSmoothScrollClick(
+                        e,
+                        link.hash,
+                        link.name as SectionName
+                      )
+                    }
                   >
                     {linkText}
                     {isActive && (
