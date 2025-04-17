@@ -33,18 +33,18 @@ export default function Contact() {
       }}
     >
       {/* Replaced SectionHeading with h2 and restored text */}
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
+      <h2 className="text-3xl font-bold text-center mb-8 text-white">
         Have More Questions?
       </h2>
       {/* Replaced direct email paragraph with inquiry guidance */}
-      <p className="text-gray-700 -mt-6 dark:text-white/80">
+      <p className="mt-6 text-white/80">
         We&apos;d love to hear from you! Drop your questions or comments below,
         and we&apos;ll get back to you soon.
       </p>
 
       <form
         ref={formRef} // Add ref for resetting
-        className="mt-10 flex flex-col dark:text-black"
+        className="mt-10 flex flex-col text-black"
         action={async (formData) => {
           // Use the server action
           const { error } = await sendEmail(formData);
@@ -60,7 +60,7 @@ export default function Contact() {
         // Removed previous onSubmit handler
       >
         <input
-          className="h-14 px-4 rounded-lg border bg-gray-100 border-gray-300 dark:border-gray-600 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none dark:text-gray-800 placeholder:text-gray-500"
+          className="h-14 px-4 rounded-lg border bg-gray-100 border-gray-600 bg-opacity-80 focus:bg-opacity-100 transition-all outline-none text-gray-800 placeholder:text-gray-500"
           name="senderEmail"
           type="email"
           required
@@ -68,7 +68,7 @@ export default function Contact() {
           placeholder="Your email address"
         />
         <textarea
-          className="h-52 my-3 rounded-lg border bg-gray-100 border-gray-300 dark:border-gray-600 p-4 dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none dark:text-gray-800 placeholder:text-gray-500"
+          className="h-52 my-3 rounded-lg border bg-gray-100 border-gray-600 p-4 bg-opacity-80 focus:bg-opacity-100 transition-all outline-none text-gray-800 placeholder:text-gray-500"
           name="message"
           placeholder="Your message"
           required
@@ -77,7 +77,7 @@ export default function Contact() {
         {/* Replaced SubmitBtn with standard button */}
         <button
           type="submit"
-          className="group flex items-center text-black justify-center gap-2 h-[3rem] w-[8rem] bg-gray-900  rounded-full outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-blue-500 hover:text-white active:scale-105 dark:bg-white dark:bg-opacity-10 disabled:scale-100 disabled:bg-opacity-65 self-center mt-4"
+          className="group flex items-center text-black justify-center gap-2 h-[3rem] w-[8rem]   rounded-full outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-blue-500 hover:text-white active:scale-105 bg-white bg-opacity-10 disabled:scale-100 disabled:bg-opacity-65 self-center mt-4"
         >
           Submit
         </button>

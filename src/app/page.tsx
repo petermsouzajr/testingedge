@@ -49,7 +49,7 @@ export default function HomePage() {
           Ship Reliable Web Apps Faster
         </h1>
         <p className="text-lg text-gray-600 mb-8 max-w-2xl sm:mx-auto mx-2">
-          Expert Test Automation, Documentation, & Compliance Testing (WCAG,
+          Expert Test Automation, Documentation, & Compliance (WCAG,
           Performance, SOC2 Prep) for SaaS, Fintech, and E-commerce.
         </p>
         <Link
@@ -81,15 +81,15 @@ export default function HomePage() {
         viewport={{ once: true }}
         custom={1}
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800  dark:text-gray-100 mb-8">
+        <h2 className="text-3xl font-bold text-center text-gray-100 mb-8">
           Solve Your Software Quality Challenges
         </h2>
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+            <h3 className="text-xl font-semibold text-gray-200 mb-4">
               Common Pain Points:
             </h3>
-            <ul className="list-inside text-lg space-y-2 text-gray-600 dark:text-gray-300">
+            <ul className="list-inside text-lg space-y-2 text-gray-300">
               <li>❌ Bugs slowing down releases?</li>
               <li>❌ Meeting WCAG accessibility standards?</li>
               <li>❌ Documenting test evidence for audits?</li>
@@ -158,39 +158,48 @@ export default function HomePage() {
               <li>✓ Coverage goals tailored to your needs</li>
             </ul>
           </div>
-          {/* Service Card 2 - Content format unchanged for now, review if needed */}
+          {/* Service Card 2 - CONVERTED TO LIST */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <Image
               src="/images/icon-2.png"
               alt="Essential Documentation Icon"
               width={84}
               height={84}
-              className="mx-auto mb-3" // Center icon and maintain margin
+              className="mx-auto mb-3"
             />
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Essential Documentation
             </h3>
-            <p className="text-gray-600 text-sm">
-              TestRail or Xray integration, How-To Guides, non-technical
-              Given-When-Then Scenarios.
-            </p>
+            {/* CHANGED from <p> to <ul> */}
+            <ul className="text-gray-600 text-sm space-y-1 text-left">
+              <li>✓ TestRail / Xray Integration</li>
+              <li>✓ Test Data Management</li>
+              <li>✓ Clear How-To Guides</li>
+              <li>✓ Non-technical Gherkin Scenarios</li>
+            </ul>
           </div>
-          {/* Service Card 3 - Content format unchanged for now, review if needed */}
+          {/* Service Card 3 - CONVERTED TO LIST */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <Image
               src="/images/icon-3.png"
               alt="Specialized Testing Icon"
               width={84}
               height={84}
-              className="mx-auto mb-3" // Center icon and maintain margin
+              className="mx-auto mb-3"
             />
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               Specialized Testing
             </h3>
-            <p className="text-gray-600 text-sm">
-              Accessibility (WCAG AA) (Tiers Available), Performance
-              (Load/Stress), SOC2 Prep (Tiers Available).
-            </p>
+            {/* CHANGED from <p> to <ul> */}
+            <ul className="text-gray-600 text-sm space-y-1 text-left">
+              <li>✓ Accessibility Testing (WCAG AA)</li>
+              <li>✓ Performance Testing (Load/Stress)</li>
+              <li>✓ SOC2 Preparation Support</li>
+              <li>
+                ✓{' '}
+                <em className="text-xs">Tiered options available for scope</em>
+              </li>
+            </ul>
           </div>
         </div>
         {/* Key Tools Sub-section */}
@@ -282,7 +291,7 @@ export default function HomePage() {
         ref={whyUsRef}
         id="why-us"
         // Added bg, padding for context - Ensure p-8 is present
-        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 rounded-lg p-8"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-900 rounded-lg p-8"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
@@ -290,100 +299,123 @@ export default function HomePage() {
         custom={3}
       >
         <h2 className="text-3xl font-bold text-center text-white mb-12">
-          {' '}
-          {/* Ensure mb-12 */}
           Why Partner with Testing Edge?
         </h2>
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-6">
-          {/* Column 1: Experience & Technical Prowess */}
-          <div className="space-y-5 text-gray-300">
+          {/* Point 1 - Use Bullet */}
+          <div className="flex items-start gap-3">
             {' '}
-            {/* Adjusted spacing & text color */}
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Decade of Diverse Experience:
-              </strong>{' '}
-              Successfully delivered robust testing solutions across demanding
-              sectors like{' '}
-              <strong className="font-semibold">
-                FinTech, E-commerce, and Social Media platforms
-              </strong>
-              .
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Modern Automation Mastery:
-              </strong>{' '}
-              Expertise in{' '}
-              <strong className="font-semibold">
-                Cypress, TypeScript, Playwright, RSpec, and CI/CD integration
-              </strong>
-              . This focus can significantly enhance test reliability and
-              accelerate feedback loops.
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Full-Stack Testing Perspective:
-              </strong>{' '}
-              We consider the entire development lifecycle, enabling more
-              effective testing strategies that consider both frontend and
-              backend implications.
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Proactive Problem Solving:
-              </strong>{' '}
-              Don't just find bugs,{' '}
-              <strong className="font-semibold">
-                resolve client-facing issues
-              </strong>{' '}
-              and proactively improve core QA processes to prevent future
-              problems.
-            </p>
+            {/* Slightly reduce gap */}
+            {/* Replace number span with styled div */}
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Proven Experience
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Proven experience delivering robust testing solutions in
+                demanding sectors (FinTech, E-commerce, Social).
+              </p>
+            </div>
           </div>
-          {/* Column 2: Process, Value & Recognition */}
-          <div className="space-y-5 text-gray-300">
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Holistic Quality Focus:
-              </strong>{' '}
-              Services extend beyond test scripts to include{' '}
-              <strong className="font-semibold">
-                {' '}
-                establishing documentation standards (TestRail, Gherkin, JSDoc),
-                enhancing team workflows (Jira), and specialized testing like
-                Accessibility
-              </strong>
-              .
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Foundation Building Expertise:
-              </strong>{' '}
-              Skilled in setting up entire QA ecosystems from scratch –
-              including repositories, documentation, Jira workflows, and
-              deployment processes – drastically reducing friction for
-              development teams.
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Direct Access & Credibility:
-              </strong>{' '}
-              Collaborate directly with a recognized{' '}
-              <strong className="font-semibold">Cypress Ambassador</strong>,
-              ensuring you benefit from cutting-edge knowledge and a commitment
-              to quality acknowledged by industry leaders.
-            </p>
-            <p>
-              <strong className="text-white block mb-1 text-lg">
-                Transparent & Collaborative Process:
-              </strong>{' '}
-              Leverages{' '}
-              <strong className="font-semibold">Agile methodologies</strong> for
-              clear communication, defined scopes, and a partnership approach
-              focused on delivering tangible ROI and enabling your team's
-              success.
-            </p>
+          {/* Point 2 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Technical Mastery
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Mastery of modern tools (Cypress, TS, Playwright, RSpec, CI/CD)
+                enhances test reliability and accelerates feedback.
+              </p>
+            </div>
+          </div>
+          {/* Point 3 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Full-Stack Perspective
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Full-stack perspective enables effective strategies considering
+                frontend & backend implications.
+              </p>
+            </div>
+          </div>
+          {/* Point 4 (Keep original structure or update if needed) - Assuming update */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Proactive Problem Solving
+              </h3>{' '}
+              {/* Assuming point 4 exists */}
+              <p className="text-gray-200 text-sm">
+                Don't just find bugs, resolve client-facing issues and
+                proactively improve core QA processes to prevent future
+                problems.
+              </p>{' '}
+              {/* Example text */}
+            </div>
+          </div>
+          {/* Point 5 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Holistic Approach
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Holistic approach includes documentation standards (TestRail,
+                Gherkin), workflow enhancements (Jira), and specialized testing
+                (Accessibility).
+              </p>
+            </div>
+          </div>
+          {/* Point 6 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              {/* NOTE: text-gray-700/600 used here in original, corrected to 200 to match others */}
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Foundation Building
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Expertise in building full QA ecosystems (repos, docs, Jira,
+                processes) to reduce friction for dev teams.
+              </p>
+            </div>
+          </div>
+          {/* Point 7 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              {/* NOTE: text-gray-700/600 used here in original, corrected to 200 to match others */}
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Industry Credibility
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Direct collaboration with a Cypress Ambassador brings
+                cutting-edge knowledge and industry-recognized quality
+                commitment.
+              </p>
+            </div>
+          </div>
+          {/* Point 8 - Use Bullet */}
+          <div className="flex items-start gap-3">
+            <div className="mt-1.5 w-3 h-3 bg-blue-600 rounded-full shrink-0"></div>
+            <div>
+              {/* NOTE: text-gray-700/600 used here in original, corrected to 200 to match others */}
+              <h3 className="text-xl font-semibold text-gray-200 mb-1">
+                Agile & ROI-Focused
+              </h3>
+              <p className="text-gray-200 text-sm">
+                Agile methodologies ensure clear communication, defined scopes,
+                and a partnership focused on ROI and team enablement.
+              </p>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -458,7 +490,7 @@ export default function HomePage() {
         ref={supportRef}
         id="support"
         // Match background with "Why Us" or choose another contrasting one
-        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 rounded-lg p-8"
+        className="w-full max-w-[50rem] py-12 bg-gray-800 p-8 rounded-lg mb-28 scroll-mt-28"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
@@ -466,12 +498,12 @@ export default function HomePage() {
         custom={5}
       >
         <h2 className="text-3xl font-bold text-center text-white mb-6">
-          Protect Your Investment: Ongoing Support
+          Ongoing Support Packages
         </h2>
-        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
-          Your test automation suite is a valuable asset. To ensure it continues
-          to deliver ROI as your application evolves, we offer structured
-          support options beyond the initial project delivery.
+        <p className="text-center text-gray-300 mb-10 max-w-3xl mx-auto">
+          Protect your test automation investment. As your application evolves,
+          our structured support options ensure continued ROI beyond project
+          delivery.
         </p>
 
         {/* Included Warranty Section */}
