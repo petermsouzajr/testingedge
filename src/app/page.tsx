@@ -544,7 +544,7 @@ export default function HomePage() {
               <li>✓ Monthly health check summary</li>
             </ul>
             <p className="text-white font-semibold text-lg mt-auto">
-              $1,450 / month
+              $1,400 / month
             </p>
             <p className="text-xs text-blue-200">
               ($4,200 total - 3 Month Commitment)
