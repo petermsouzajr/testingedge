@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // !! IMPORTANT: Replace this with your ACTUAL Testing Edge Vercel deployment URL !!
-  assetPrefix: 'https://testingedge.vercel.app',
+  assetPrefix: 'https://testingedge-peter-souzas-projects.vercel.app',
 
   // Required for Vercel deployment with rewrites/server actions
   output: 'standalone',
