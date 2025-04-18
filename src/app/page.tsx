@@ -53,7 +53,7 @@ export default function HomePage() {
           Performance, SOC2 Prep) for SaaS, Fintech, and E-commerce.
         </p>
         <Link
-          href="/your-consultation-booking-page"
+          href="/estimate"
           className="bg-blue-600 inline-block hover:bg-blue-700 mx-2  text-white px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 active:scale-95 transition-all duration-150 ease-in-out"
         >
           Schedule Your Free Consultation Now
@@ -507,7 +507,7 @@ export default function HomePage() {
         </p>
 
         {/* Included Warranty Section */}
-        <div className="mb-12 bg-gray-700 p-6 rounded-lg shadow-md">
+        <div className="mb-12 bg-blue-800 p-6 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold text-white mb-3">
             Included Project Warranty (1 Month)
           </h3>
@@ -613,6 +613,7 @@ export default function HomePage() {
         <p className="text-center text-gray-400 text-sm mt-10">
           Package details and pricing are indicative. Specific terms are
           discussed and tailored during project handover or upon request.
+          Flexible payment options may be available.
         </p>
       </motion.section>
 
@@ -634,7 +635,7 @@ export default function HomePage() {
           Let's discuss how Testing Edge can help.
         </p>
         <Link
-          href="#contact-form" // Link to the form ID below
+          href="/estimate"
           className="inline-block bg-gray-100 hover:bg-white mx-2 text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
         >
           Schedule Your Free Consultation Now

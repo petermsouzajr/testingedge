@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Import router for redirection
+import { sendCalculatorQuoteToOwner } from '@/actions/sendEmail'; // Import the new action
+import { CALCULATOR_INITIAL_STATE } from '@/config/pricingConfig'; // Import the initial state
 
 // --- Helper Components ---
 
@@ -195,52 +197,8 @@ export default function CalculatorPage() {
     router.push('/');
   };
 
-  // --- REVISED Calculator State (Correcting Support Prices, Adding Rate Adjustments) ---
-  const [inputs, setInputs] = useState({
-    baseHourlyRate: '125.00',
-    hoursPerWeek: '25',
-    minPrice: '10,000.00',
-    contingencyBuffer: '0.15',
-    rushFeeMultiplier: '0.20',
-    cypressHrsBase: '3',
-    playwrightHrsBase: '3',
-    jestHrsBase: '1',
-    testRailHrsBase: '1.5',
-    howToHrsPerDoc: '2',
-    gwtHrsPerDoc: '1.5',
-    accessibilityFactorT1: '1',
-    accessibilityFactorT2: '1.5',
-    performanceFactorT1: '1',
-    performanceFactorT2: '1.8',
-    soc2FactorT1: '1.2',
-    soc2FactorT2: '2',
-    supportRateAdjT1: '1.2',
-    supportRateAdjT2: '0.85',
-    supportRateAdjT3: '0.85',
-    supportHoursT1: '10',
-    supportHoursT2: '40',
-    supportHoursT3: '90',
-    projectName: 'Real Estate App',
-    numFeatures: '12',
-    complexity: '2',
-    browsers: '2',
-    cypressCoverage: '75',
-    playwrightCoverage: '',
-    jestCoverage: '90',
-    testRailCoverage: '90',
-    howToDocsCount: '7',
-    gwtDocsCount: '24',
-    isAccessibilityT1: true,
-    isAccessibilityT2: false,
-    isPerformanceT1: false,
-    isPerformanceT2: false,
-    isSoc2T1: false,
-    isSoc2T2: false,
-    isSupportT1: false,
-    isSupportT2: false,
-    isSupportT3: true,
-    isRush: false,
-  });
+  // --- Use IMPORTED Initial State ---
+  const [inputs, setInputs] = useState(CALCULATOR_INITIAL_STATE);
 
   // --- Results State (No changes needed here) ---
   const [results, setResults] = useState({
@@ -268,6 +226,13 @@ export default function CalculatorPage() {
     estimatedMonths: 0,
     estimatedYears: 0,
   });
+
+  // --- NEW: State for Notes and Submission Status (Ensure this is defined here) ---
+  const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // --- NEW: State for confirmation message visibility ---
+  const [showOwnerEmailConfirmation, setShowOwnerEmailConfirmation] =
+    useState(false);
 
   // --- Input Handlers ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -319,15 +284,10 @@ export default function CalculatorPage() {
     // (Using helper functions: parseCurrency, parsePercent, parseIntStrict, parseFloatStrict)
     const baseHourlyRate = parseCurrency(inputs.baseHourlyRate); // B2
     const hoursPerWeek = parseIntStrict(inputs.hoursPerWeek); // B3
+    const rushHoursPerWeek = parseIntStrict(inputs.rushHoursPerWeek); // <<< PARSE new input
     const minPrice = parseCurrency(inputs.minPrice); // B4
     const contingencyBuffer = parseFloatStrict(inputs.contingencyBuffer); // B5
     const rushFeeMultiplier = parseFloatStrict(inputs.rushFeeMultiplier); // B6
-    const cypressHrsBase = parseFloatStrict(inputs.cypressHrsBase); // B7
-    const playwrightHrsBase = parseFloatStrict(inputs.playwrightHrsBase); // B8
-    const jestHrsBase = parseFloatStrict(inputs.jestHrsBase); // B9
-    const testRailHrsBase = parseFloatStrict(inputs.testRailHrsBase); // B10
-    const howToHrsPerDoc = parseFloatStrict(inputs.howToHrsPerDoc); // B11
-    const gwtHrsPerDoc = parseFloatStrict(inputs.gwtHrsPerDoc); // B12
     const accessibilityFactorT1 = parseFloatStrict(
       inputs.accessibilityFactorT1
     ); // B13
@@ -347,12 +307,12 @@ export default function CalculatorPage() {
     const numFeatures = parseIntStrict(inputs.numFeatures); // B22
     const complexity = parseFloatStrict(inputs.complexity); // B23
     const browsers = parseIntStrict(inputs.browsers); // B24
-    const cypressCov = parsePercent(inputs.cypressCoverage); // B25
-    const playwrightCov = parsePercent(inputs.playwrightCoverage); // B26
-    const jestCov = parsePercent(inputs.jestCoverage); // B27
-    const testRailCov = parsePercent(inputs.testRailCoverage); // B28
-    const howToCount = parseIntStrict(inputs.howToDocsCount); // B29
-    const gwtCount = parseIntStrict(inputs.gwtDocsCount); // B30
+    // const cypressCov = parsePercent(inputs.cypressCoverage); // B25 - Unused
+    // const playwrightCov = parsePercent(inputs.playwrightCoverage); // B26 - Unused
+    // const jestCov = parsePercent(inputs.jestCoverage); // B27 - Unused
+    // const testRailCov = parsePercent(inputs.testRailCoverage); // B28 - Unused
+    // const howToCount = parseIntStrict(inputs.howToDocsCount); // B29 - Unused
+    // const gwtCount = parseIntStrict(inputs.gwtDocsCount); // B30 - Unused
     // Boolean flags accessed directly via inputs.is*
 
     // --- (A) Calculated Hours Breakdown ---
@@ -385,56 +345,67 @@ export default function CalculatorPage() {
       parseFloatStrict(inputs.gwtHrsPerDoc); // B54
 
     // --- (B) Specialized Estimations (Hours & Price) ---
-    // REVERTING to Strict Sheet Formula Base: (Num Features * Complexity * Browsers)
-    const baseForSpecialized = numFeatures * complexity * browsers; // (B22 * B23 * B24)
+    const baseForSpecialized = numFeatures * complexity * browsers;
 
-    let calculatedAccessibilityHours = 0; // Intermediate for B37
+    let calculatedAccessibilityHours = 0;
+    // Use separate IFs for accumulation
+    if (inputs.isAccessibilityT1) {
+      calculatedAccessibilityHours +=
+        baseForSpecialized * accessibilityFactorT1;
+    }
     if (inputs.isAccessibilityT2) {
-      calculatedAccessibilityHours = baseForSpecialized * accessibilityFactorT2; // Use strict base * B14
-    } else if (inputs.isAccessibilityT1) {
-      calculatedAccessibilityHours = baseForSpecialized * accessibilityFactorT1; // Use strict base * B13
+      calculatedAccessibilityHours +=
+        baseForSpecialized * accessibilityFactorT2;
     }
-    const result_accessibilityHours = calculatedAccessibilityHours; // B55
+    const result_accessibilityHours = calculatedAccessibilityHours;
     const result_accessibilityPrice =
-      result_accessibilityHours * baseHourlyRate; // B38
+      result_accessibilityHours * baseHourlyRate;
 
-    let calculatedPerformanceHours = 0; // Intermediate for B41
+    let calculatedPerformanceHours = 0;
+    // Use separate IFs for accumulation
+    if (inputs.isPerformanceT1) {
+      calculatedPerformanceHours += baseForSpecialized * performanceFactorT1;
+    }
     if (inputs.isPerformanceT2) {
-      calculatedPerformanceHours = baseForSpecialized * performanceFactorT2; // Use strict base * B16
-    } else if (inputs.isPerformanceT1) {
-      calculatedPerformanceHours = baseForSpecialized * performanceFactorT1; // Use strict base * B15
+      calculatedPerformanceHours += baseForSpecialized * performanceFactorT2;
     }
-    const result_performanceHours = calculatedPerformanceHours; // B56
-    const result_performancePrice = result_performanceHours * baseHourlyRate; // B42
+    const result_performanceHours = calculatedPerformanceHours;
+    const result_performancePrice = result_performanceHours * baseHourlyRate;
 
-    let calculatedSoc2Hours = 0; // Intermediate for B45
-    if (inputs.isSoc2T2) {
-      calculatedSoc2Hours = baseForSpecialized * soc2FactorT2; // Use strict base * B18
-    } else if (inputs.isSoc2T1) {
-      calculatedSoc2Hours = baseForSpecialized * soc2FactorT1; // Use strict base * B17
+    let calculatedSoc2Hours = 0;
+    // Use separate IFs for accumulation
+    if (inputs.isSoc2T1) {
+      calculatedSoc2Hours += baseForSpecialized * soc2FactorT1;
     }
-    const result_soc2Hours = calculatedSoc2Hours; // B57
-    const result_soc2Price = result_soc2Hours * baseHourlyRate; // B46
+    if (inputs.isSoc2T2) {
+      calculatedSoc2Hours += baseForSpecialized * soc2FactorT2;
+    }
+    const result_soc2Hours = calculatedSoc2Hours;
+    const result_soc2Price = result_soc2Hours * baseHourlyRate;
 
     // --- (C) Support Package Calculation ---
+    // Pre-calculate price for each tier based on its hours and rate adj
     const calculatedSupportPriceT1 =
-      baseHourlyRate * supportHoursT1 * supportRateAdjT1; // I11 logic
+      baseHourlyRate * supportHoursT1 * supportRateAdjT1;
     const calculatedSupportPriceT2 =
-      baseHourlyRate * supportHoursT2 * supportRateAdjT2; // I24 logic
+      baseHourlyRate * supportHoursT2 * supportRateAdjT2;
     const calculatedSupportPriceT3 =
-      baseHourlyRate * supportHoursT3 * supportRateAdjT3; // I38 logic
+      baseHourlyRate * supportHoursT3 * supportRateAdjT3;
 
-    let calculatedSupportPackageHours = 0; // Intermediate for B61/B67
-    let calculatedSupportPackagePrice = 0; // Intermediate for B62/B73
+    let calculatedSupportPackageHours = 0;
+    let calculatedSupportPackagePrice = 0;
+    // Use separate IFs for accumulation
+    if (inputs.isSupportT1) {
+      calculatedSupportPackageHours += supportHoursT1;
+      calculatedSupportPackagePrice += calculatedSupportPriceT1;
+    }
+    if (inputs.isSupportT2) {
+      calculatedSupportPackageHours += supportHoursT2;
+      calculatedSupportPackagePrice += calculatedSupportPriceT2;
+    }
     if (inputs.isSupportT3) {
-      calculatedSupportPackageHours = supportHoursT3;
-      calculatedSupportPackagePrice = calculatedSupportPriceT3;
-    } else if (inputs.isSupportT2) {
-      calculatedSupportPackageHours = supportHoursT2;
-      calculatedSupportPackagePrice = calculatedSupportPriceT2;
-    } else if (inputs.isSupportT1) {
-      calculatedSupportPackageHours = supportHoursT1;
-      calculatedSupportPackagePrice = calculatedSupportPriceT1;
+      calculatedSupportPackageHours += supportHoursT3;
+      calculatedSupportPackagePrice += calculatedSupportPriceT3;
     }
     const result_supportPackageHours = calculatedSupportPackageHours;
     const result_supportPackagePrice = calculatedSupportPackagePrice;
@@ -469,8 +440,12 @@ export default function CalculatorPage() {
       result_basePrice + result_rushAdjustment + result_supportPackagePrice; // B74
 
     // --- (F) Duration Estimation ---
+    const effectiveHoursPerWeek = inputs.isRush
+      ? rushHoursPerWeek
+      : hoursPerWeek;
+
     const result_estimatedWeeks =
-      hoursPerWeek > 0 ? result_finalHours / hoursPerWeek : 0; // B77
+      effectiveHoursPerWeek > 0 ? result_finalHours / effectiveHoursPerWeek : 0; // B77 - Use effective rate
     const result_estimatedMonths =
       Math.ceil((result_estimatedWeeks / 4) * 10) / 10; // B78
     const result_estimatedYears =
@@ -504,6 +479,108 @@ export default function CalculatorPage() {
     });
   }, [inputs]); // Dependency array remains the same
 
+  // --- Handler for Sending Quote to Owner (Modified) ---
+  const handleSendToOwner = async () => {
+    setIsSubmitting(true);
+    setShowOwnerEmailConfirmation(false);
+
+    try {
+      // --- Construct Expanded Payload ---
+      const payload = {
+        // Project Identification
+        projectName: inputs.projectName,
+
+        // Key Inputs
+        baseHourlyRateInput: parseFloat(inputs.baseHourlyRate) || 0,
+        hoursPerWeekInput: parseInt(inputs.hoursPerWeek, 10) || 0,
+        numFeaturesInput: parseInt(inputs.numFeatures, 10) || 0,
+        complexityInput: parseFloat(inputs.complexity) || 0,
+        browsersInput: parseInt(inputs.browsers, 10) || 0,
+        cypressCoverageInput: parseFloat(inputs.cypressCoverage) || 0,
+        playwrightCoverageInput: parseFloat(inputs.playwrightCoverage) || 0,
+        jestCoverageInput: parseFloat(inputs.jestCoverage) || 0,
+        testRailCoverageInput: parseFloat(inputs.testRailCoverage) || 0,
+        howToDocsCountInput: parseInt(inputs.howToDocsCount, 10) || 0,
+        gwtDocsCountInput: parseInt(inputs.gwtDocsCount, 10) || 0,
+
+        // Selections (Booleans)
+        isAccessibilityT1: inputs.isAccessibilityT1,
+        isAccessibilityT2: inputs.isAccessibilityT2,
+        isPerformanceT1: inputs.isPerformanceT1,
+        isPerformanceT2: inputs.isPerformanceT2,
+        isSoc2T1: inputs.isSoc2T1,
+        isSoc2T2: inputs.isSoc2T2,
+        isSupportT1: inputs.isSupportT1,
+        isSupportT2: inputs.isSupportT2,
+        isSupportT3: inputs.isSupportT3,
+        isRush: inputs.isRush,
+
+        // Calculated Results - Summaries
+        finalPrice: results.finalPrice,
+        finalHours: results.finalHours,
+        estimatedWeeks: results.estimatedWeeks,
+        estimatedMonths: results.estimatedMonths,
+        // Effective Rate Calculation (handle division by zero)
+        effectiveRate:
+          results.finalHours > 0 ? results.finalPrice / results.finalHours : 0,
+
+        // Calculated Results - Cost Breakdown
+        basePrice: results.basePrice,
+        accessibilityPrice: results.accessibilityPrice,
+        performancePrice: results.performancePrice,
+        soc2Price: results.soc2Price,
+        supportPackagePrice: results.supportPackagePrice,
+        rushAdjustment: results.rushAdjustment,
+
+        // Calculated Results - Hours Breakdown
+        cypressHours: results.cypressHours,
+        playwrightHours: results.playwrightHours,
+        jestHours: results.jestHours,
+        testRailHours: results.testRailHours,
+        howToHours: results.howToHours,
+        gwtHours: results.gwtHours,
+        accessibilityHours: results.accessibilityHours,
+        performanceHours: results.performanceHours,
+        soc2Hours: results.soc2Hours,
+        totalBaseHours: results.totalBaseHours,
+        contingencyHours: results.contingencyHours,
+        supportPackageHours: results.supportPackageHours,
+
+        // Configuration Used (Optional but helpful)
+        contingencyBufferUsed: parseFloat(inputs.contingencyBuffer) || 0,
+        rushFeeMultiplierUsed: parseFloat(inputs.rushFeeMultiplier) || 0,
+
+        // Notes
+        notes: notes,
+      };
+      // --- End Expanded Payload ---
+
+      // Validation (Using finalPrice as a simple check)
+      if (payload.finalPrice <= 0 || !Number.isFinite(payload.finalPrice)) {
+        console.error(
+          "Calculation hasn't completed or resulted in zero/invalid price. Cannot send email."
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Call Server Action with the new payload structure
+      const result = await sendCalculatorQuoteToOwner(payload);
+
+      if (result.success) {
+        setShowOwnerEmailConfirmation(true);
+      } else {
+        console.error('Failed to send email:', result.error);
+      }
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'An unknown error occurred.';
+      console.error('Error sending calculator quote:', message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // --- Render Logic ---
   if (isAuthenticated === null) {
     return (
@@ -515,8 +592,6 @@ export default function CalculatorPage() {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100">
-      {' '}
-      {/* Light bg for contrast */}
       <main className="w-full max-w-[50rem] py-8 sm:py-12 px-0 sm:px-4">
         {/* === In-Page Navigation (Moved Here) === */}
         {isAuthenticated && (
@@ -689,6 +764,16 @@ export default function CalculatorPage() {
                     onChange={handleInputChange}
                     type="text"
                     description="Avg hrs/week for duration calc"
+                  />
+                </div>
+                <div className="bg-green-50">
+                  <InputField
+                    label="Rush Hours per Week"
+                    name="rushHoursPerWeek"
+                    value={inputs.rushHoursPerWeek}
+                    onChange={handleInputChange}
+                    type="text"
+                    description="Accelerated velocity if Rush=yes."
                   />
                 </div>
                 <div className="bg-green-50">
@@ -1373,7 +1458,71 @@ export default function CalculatorPage() {
                 </div>
               </div>
             </section>
-            {/* TODO: Add Email Quote Button Here */}
+            {/* === NEW: Notes and Email Button Section (Conditionally Rendered) === */}
+            <div id="notes-actions" className="h-16"></div>
+            <section className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mx-2 sm:mx-0">
+              <h2 className="text-lg sm:text-xl font-semibold p-4 border-b bg-gray-50 text-gray-800">
+                Notes & Actions
+              </h2>
+
+              {/* --- Conditional Rendering --- */}
+              {showOwnerEmailConfirmation ? (
+                /* --- Confirmation Message --- */
+                <div className="p-6 bg-green-100 border-t border-green-200 text-center space-y-4">
+                  <p className="text-lg font-semibold text-green-800">
+                    ✅ Quote details emailed to owner successfully!
+                  </p>
+                  <button
+                    onClick={() => setShowOwnerEmailConfirmation(false)}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline text-sm"
+                  >
+                    Send Another?
+                  </button>
+                </div>
+              ) : (
+                /* --- Notes and Send Button --- */
+                <div className="p-4 space-y-4">
+                  <div>
+                    <label
+                      htmlFor="calculator-notes"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Notes (Optional)
+                    </label>
+                    <textarea
+                      id="calculator-notes"
+                      placeholder="Add any relevant notes about this calculation..."
+                      value={notes}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        setNotes(e.target.value)
+                      }
+                      className="mt-1 block w-full text-sm border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                      rows={4}
+                      disabled={isSubmitting} // Disable textarea while submitting
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSendToOwner}
+                    disabled={isSubmitting || results.finalPrice <= 0}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting
+                      ? 'Sending Email...'
+                      : 'Email Quote Details to Owner'}
+                  </button>
+                  {/* Show validation error inline if calculation is incomplete */}
+                  {results.finalPrice <= 0 && !isSubmitting && (
+                    <p className="text-xs text-red-600 text-center mt-1">
+                      Calculation must complete with a valid result before
+                      sending.
+                    </p>
+                  )}
+                </div>
+              )}
+              {/* --- End Conditional Rendering --- */}
+            </section>
+            {/* End of Notes Section */}
           </div>
         )}
       </main>

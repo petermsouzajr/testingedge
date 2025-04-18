@@ -34,12 +34,11 @@ export default function Contact() {
     >
       {/* Replaced SectionHeading with h2 and restored text */}
       <h2 className="text-3xl font-bold text-center mb-8 text-white">
-        Have More Questions?
+        For Questions or a Direct Consultation
       </h2>
       {/* Replaced direct email paragraph with inquiry guidance */}
       <p className="mt-6 text-white/80">
-        We&apos;d love to hear from you! Drop your questions or comments below,
-        and we&apos;ll get back to you soon.
+        Drop your questions or comments below, and we&apos;ll get back to you!
       </p>
 
       <form
