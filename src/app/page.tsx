@@ -306,7 +306,7 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="text-center md:text-left">
             <p className="mb-4 text-lg">
-              I’m Peter Souza, founder of Testing Edge. With over a decade of
+              I'm Peter Souza, founder of Testing Edge. With over a decade of
               experience in software development and quality assurance, I
               specialize in modern web application testing. Testing Edge
               delivers expert-driven solutions with rapid turnaround to ensure
@@ -317,15 +317,15 @@ export default function HomePage() {
               <strong className="font-semibold text-white">
                 Cypress Ambassador
               </strong>
-              , I’ve honed my craft across roles at U.S. Bank, PeerStreet, and
-              more, boosting delivery speed and reliability. I’m passionate
+              , I've honed my craft across roles at U.S. Bank, PeerStreet, and
+              more, boosting delivery speed and reliability. I'm passionate
               about building robust test suites that reduce bugs, accelerate
               releases, and meet compliance standards.
             </p>
             <p>
               Testing Edge is rooted in reliability, clear communication, and
-              empowering teams to ship with confidence. We don’t just test—we
-              collaborate to elevate your quality processes. Let’s create
+              empowering teams to ship with confidence. We don't just test—we
+              collaborate to elevate your quality processes. Let's create
               something great together.
             </p>
           </div>
@@ -782,7 +782,7 @@ export default function HomePage() {
         <div
           className="mt-10 relative w-10/12 h-50 mx-auto overflow-hidden rounded-lg sm:shadow-md"
           style={{
-            backgroundImage: 'url(/images/hero-3.png)',
+            backgroundImage: 'url(/testing-edge/images/hero-3.png)',
             backgroundRepeat: 'repeat-x',
             backgroundPosition: 'center center',
             backgroundSize: 'contain', // Scales image height to fit container height
