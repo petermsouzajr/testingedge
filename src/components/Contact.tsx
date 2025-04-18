@@ -34,7 +34,7 @@ export default function Contact() {
     >
       {/* Replaced SectionHeading with h2 and restored text */}
       <h2 className="text-3xl font-bold text-center mb-8 text-white">
-        For Questions or a Direct Consultation
+        Still have questions?
       </h2>
       {/* Replaced direct email paragraph with inquiry guidance */}
       <p className="mt-6 text-white/80">

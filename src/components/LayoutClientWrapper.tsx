@@ -16,12 +16,17 @@ export default function LayoutClientWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const showHeader = pathname !== '/calculator';
+  // Update condition to hide header on legal pages as well
+  const showHeader = ![
+    '/calculator',
+    '/terms-of-service',
+    '/privacy-policy',
+  ].includes(pathname);
 
   // Adjust body padding based on whether header is shown
   const bodyPadding = showHeader
-    ? 'pt-20 md:pt-[calc(1.5rem+3.25rem+1rem)]' // Original padding
-    : 'pt-4'; // Reduced padding
+    ? 'pt-20 md:pt-[calc(1.5rem+3.25rem+1rem)]' // Padding when header is shown
+    : 'pt-4'; // Reduced padding when header is hidden
 
   return (
     <body

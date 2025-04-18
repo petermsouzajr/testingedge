@@ -8,12 +8,19 @@ export default function Footer() {
       <div className="container mx-auto px-4 text-center">
         <div className="mb-4">
           {/* Add optional links like LinkedIn here if desired */}
-          <Link href="/privacy-policy" className="text-sm hover:underline mx-2">
+          <Link
+            href="/privacy-policy"
+            className="text-sm hover:underline mx-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Privacy Policy
           </Link>
           <Link
             href="/terms-of-service"
             className="text-sm hover:underline mx-2"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Terms of Service
           </Link>

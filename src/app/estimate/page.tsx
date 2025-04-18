@@ -493,22 +493,21 @@ export default function EstimatePage() {
   };
 
   return (
-    // Apply main theme background - use white or light gray
-    <main className="container mx-auto px-4 bg-gray-950 py-12">
-      {/* Section 1: Introduction & Purpose - Light Theme */}
+    <main className="container mx-auto px-4 bg-white dark:bg-gray-950 py-12">
+      {/* Section 1: Introduction & Purpose - Updated Framing */}
       <section
         ref={introRef}
         id="introduction"
-        className="mb-16 text-center scroll-mt-28" // Increased margin
+        className="mb-16 text-center scroll-mt-28"
       >
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-          Get a Quick Project Estimate
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+          Step 1: Enter Basic Information
         </h1>
-        <p className="text-lg text-gray-300 mb-3 max-w-3xl mx-auto">
-          Answer a few questions to see a preliminary cost range for your test
-          automation needs.
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-3 max-w-3xl mx-auto">
+          Answer a few quick questions to see a preliminary cost and time range.
+          This helps start the conversation for your free consultation.
         </p>
-        <p className="text-sm text-gray-400 italic">
+        <p className="text-sm text-gray-500 dark:text-gray-400 italic">
           Note: This provides a preliminary estimate. A detailed consultation is
           recommended for a precise quote.
         </p>
@@ -708,8 +707,8 @@ export default function EstimatePage() {
           // Make margin consistent
           className="mb-16 max-w-3xl mx-auto scroll-mt-28"
         >
-          <h2 className="text-2xl font-semibold mb-6 text-gray-200 border-b border-gray-600 pb-3">
-            Receive Your Estimate and We&apos;ll Follow Up!
+          <h2 className="text-3xl font-bold mb-6 text-gray-200 border-b border-gray-600 pb-3">
+            Step 2. Receive Your Estimate and We&apos;ll Follow Up!
           </h2>
           <form onSubmit={handleSubmit}>
             {/* Use slightly lighter gray or keep white for form area */}

@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "check:all": "npm run lint && tsc --noEmit && npm run build",
-    "test": "vitest"
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

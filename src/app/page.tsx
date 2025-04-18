@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useSectionInView } from '@/lib/hooks';
 import Contact from '@/components/Contact';
+import React from 'react';
 
 // Simple fade-in animation variant
 const fadeInAnimationVariants = {
@@ -29,8 +30,10 @@ export default function HomePage() {
   const { ref: whyUsRef } = useSectionInView('Why Us');
   const { ref: processRef } = useSectionInView('Process');
   const { ref: supportRef } = useSectionInView('Support');
-  // Track the final CTA section as 'Contact' for navigation
+  // Track the blue CTA section as 'Contact' for navigation highlight
   const { ref: contactRef } = useSectionInView('Contact');
+  // Add hook to track the actual Contact Form section (as 'Email')
+  const { ref: emailRef } = useSectionInView('Email');
 
   return (
     // Adjusted width and centering based on new layout
@@ -286,6 +289,49 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* About Me/Us Section (No ref, doesn't trigger nav) */}
+      <motion.section
+        // ref={aboutRef} // <-- REMOVED
+        id="about"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-800 text-gray-300 p-8 rounded-lg shadow-lg border border-gray-700"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={3} // New animation index
+      >
+        <h2 className="text-3xl font-bold text-center text-white mb-10">
+          About Testing Edge
+        </h2>
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="text-center md:text-left">
+            <p className="mb-4 text-lg">
+              I’m Peter Souza, founder of Testing Edge. With over a decade of
+              experience in software development and quality assurance, I
+              specialize in modern web application testing. Testing Edge
+              delivers expert-driven solutions with rapid turnaround to ensure
+              your projects launch smoothly.
+            </p>
+            <p className="mb-4">
+              As a{' '}
+              <strong className="font-semibold text-white">
+                Cypress Ambassador
+              </strong>
+              , I’ve honed my craft across roles at U.S. Bank, PeerStreet, and
+              more, boosting delivery speed and reliability. I’m passionate
+              about building robust test suites that reduce bugs, accelerate
+              releases, and meet compliance standards.
+            </p>
+            <p>
+              Testing Edge is rooted in reliability, clear communication, and
+              empowering teams to ship with confidence. We don’t just test—we
+              collaborate to elevate your quality processes. Let’s create
+              something great together.
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Why Choose Us Section - Ensure consistent padding/margins */}
       <motion.section
         ref={whyUsRef}
@@ -296,7 +342,7 @@ export default function HomePage() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        custom={3}
+        custom={4} // Updated animation index
       >
         <h2 className="text-3xl font-bold text-center text-white mb-12">
           Why Partner with Testing Edge?
@@ -420,17 +466,110 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Process Section - Updated with Card Styling */}
+      {/* NEW Industry Experience Section */}
       <motion.section
-        ref={processRef}
-        id="process"
-        // Use bg-gray-100 for a cleaner light theme, ensure consistent padding
+        id="experience"
         className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-100 rounded-lg p-8"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        custom={4}
+        custom={5} // Keep animation index sequential
+      >
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+          Industry Experience Highlights
+        </h2>
+        <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          The minds behind Testing Edge have delivered robust testing solutions
+          across diverse sectors, understanding the unique challenges and
+          standards of each.
+        </p>
+        {/* Changed to 2-column grid, cards are now direct children */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+          {/* Card 1: Finance & Fintech */}
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white flex flex-col">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              Finance & Fintech
+            </h3>
+            <ul className="text-gray-600 text-sm space-y-1 text-left list-disc list-inside flex-grow">
+              <li>Business Expense Management</li>
+              <li>Major Banking Institutions</li>
+              <li>Real Estate Investment Platforms</li>
+              <li>Compliance-focused Testing</li>
+            </ul>
+          </div>
+
+          {/* Card 2: Media & Entertainment */}
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white flex flex-col">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              Media & Entertainment
+            </h3>
+            <ul className="text-gray-600 text-sm space-y-1 text-left list-disc list-inside flex-grow">
+              <li>Major Studios</li>
+              <li>Broadcast Networks</li>
+              <li>Streaming Services</li>
+              <li>High-traffic media platforms</li>
+            </ul>
+          </div>
+
+          {/* Card 3: E-commerce & Creative */}
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white flex flex-col">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              E-commerce & Creative
+            </h3>
+            <ul className="text-gray-600 text-sm space-y-1 text-left list-disc list-inside flex-grow">
+              <li>Jewelry Designer Platforms</li>
+              <li>Artist Portfolios (Hair/Makeup)</li>
+              <li>Band & Musician Websites</li>
+              <li>User Experience Focus</li>
+            </ul>
+          </div>
+
+          {/* Card 4: Health & Wellness */}
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white flex flex-col">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              Health & Wellness
+            </h3>
+            <ul className="text-gray-600 text-sm space-y-1 text-left list-disc list-inside flex-grow">
+              <li>Personal Trainer Platforms</li>
+              <li>Wellness Apps</li>
+              <li>Data Privacy Considerations (HIPAA awareness)</li>
+            </ul>
+          </div>
+
+          {/* Card 5: Social, Events & Rentals - Spanning/Centered */}
+          <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white flex flex-col md:col-span-2 md:mx-auto max-w-md lg:max-w-lg">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              Social, Events & Rentals
+            </h3>
+            <ul className="text-gray-600 text-sm space-y-1 text-left list-disc list-inside flex-grow">
+              <li>Social Networking Platforms</li>
+              <li>Concert Ticketing Systems</li>
+              <li>Music Equipment Rentals</li>
+              <li>Scalability & Performance Testing</li>
+            </ul>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* =============================== */}
+      {/* TODO: Add Testimonials Section */}
+      {/* Add a section here later to display client testimonials. */}
+      {/* It should follow the visual style of other sections */}
+      {/* and ideally include quotes, client names, and companies. */}
+      {/* This section should NOT have a `ref` for useSectionInView */}
+      {/* =============================== */}
+
+      {/* Process Section - Updated with Card Styling */}
+      <motion.section
+        ref={processRef}
+        id="process"
+        className="w-full max-w-[50rem] py-12 mb-28 scroll-mt-28 bg-gray-100 rounded-lg p-8"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={5} // Adjust animation index (was 6)
       >
         {/* Ensure consistent heading margin */}
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
@@ -489,13 +628,12 @@ export default function HomePage() {
       <motion.section
         ref={supportRef}
         id="support"
-        // Match background with "Why Us" or choose another contrasting one
         className="w-full max-w-[50rem] py-12 bg-gray-800 p-8 rounded-lg mb-28 scroll-mt-28"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        custom={5}
+        custom={6} // Adjust animation index (was 7)
       >
         <h2 className="text-3xl font-bold text-center text-white mb-6">
           Ongoing Support Packages
@@ -617,16 +755,16 @@ export default function HomePage() {
         </p>
       </motion.section>
 
-      {/* Final CTA Section - Now designated as the 'Contact' target */}
+      {/* Final CTA Section (Tracked as 'Contact') */}
       <motion.section
-        ref={contactRef} // Add ref back
-        id="contact" // Set ID back to contact
-        className="w-full max-w-[50rem] py-16 bg-blue-700 text-white rounded-lg text-center mb-28 scroll-mt-28" // Changed bg-gray-800 back towards blue, using darker bg-blue-800
+        ref={contactRef}
+        id="contact"
+        className="w-full max-w-[50rem] py-16 bg-blue-700 text-white rounded-lg text-center mb-28 scroll-mt-28"
         variants={fadeInAnimationVariants}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        custom={6}
+        custom={7} // Adjust animation index (was 8)
       >
         <h2 className="text-3xl font-bold mb-4">
           Ready to Improve Your Software Quality?
@@ -636,9 +774,9 @@ export default function HomePage() {
         </p>
         <Link
           href="/estimate"
-          className="inline-block bg-gray-100 hover:bg-white mx-2 text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
+          className="inline-block bg-white hover:bg-gray-100 mx-2 text-gray-800 px-8 py-3 rounded-md text-lg font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white active:scale-95 transition-all duration-150 ease-in-out"
         >
-          Schedule Your Free Consultation Now
+          Schedule Your Free Consultation
         </Link>
         {/* Wrapper div styled with repeating background image */}
         <div
@@ -654,8 +792,19 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* CONTACT FORM SECTION - Rendered after the CTA block */}
-      <Contact />
+      {/* CONTACT FORM SECTION (Now tracked as 'Email') */}
+      <motion.section
+        ref={emailRef}
+        id="email"
+        className="mb-20 sm:mb-28 w-[min(100%,38rem)] text-center scroll-mt-28"
+        variants={fadeInAnimationVariants}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        custom={8} // Adjust animation index (was 9)
+      >
+        <Contact />
+      </motion.section>
     </div>
   );
 }

@@ -8,3 +8,4 @@ export type SectionName =
   | 'Options'
   | 'Timeline'
   | 'Email';
+// | 'FooterBuffer'; // Removed temporary section name
