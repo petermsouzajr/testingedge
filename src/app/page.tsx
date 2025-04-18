@@ -64,7 +64,7 @@ export default function HomePage() {
         {/* Wrapper div for panoramic image effect - Added padding/centering */}
         <div className="mt-10 relative w-11/12 h-50 mx-auto overflow-hidden rounded-lg shadow-md">
           <Image
-            src="/images/hero-4.png"
+            src="/testing-edge/images/hero-4.png"
             alt="Abstract graphic representing software reliability and efficient testing processes"
             layout="fill" // Fill the wrapper div
             objectFit="cover" // Cover the area, cropping excess
@@ -135,7 +135,7 @@ export default function HomePage() {
           {/* Service Card 1 - UPDATED */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <Image
-              src="/images/icon-1.png"
+              src="/testing-edge/images/icon-1.png"
               alt="Test Automation Icon"
               width={84}
               height={74}
@@ -164,7 +164,7 @@ export default function HomePage() {
           {/* Service Card 2 - CONVERTED TO LIST */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <Image
-              src="/images/icon-2.png"
+              src="/testing-edge/images/icon-2.png"
               alt="Essential Documentation Icon"
               width={84}
               height={84}
@@ -184,7 +184,7 @@ export default function HomePage() {
           {/* Service Card 3 - CONVERTED TO LIST */}
           <div className="p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
             <Image
-              src="/images/icon-3.png"
+              src="/testing-edge/images/icon-3.png"
               alt="Specialized Testing Icon"
               width={84}
               height={84}
@@ -212,28 +212,28 @@ export default function HomePage() {
           </h4>
           <div className="flex justify-center items-center flex-wrap gap-4 md:gap-6 mb-4">
             <Image
-              src="/images/logo-cypress.png"
+              src="/testing-edge/images/logo-cypress.png"
               alt="Cypress"
               width={70}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-vitest.png"
+              src="/testing-edge/images/logo-vitest.png"
               alt="Vitest"
               width={70}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-testrail.png"
+              src="/testing-edge/images/logo-testrail.png"
               alt="TestRail"
               width={48}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-loadforge.png"
+              src="/testing-edge/images/logo-loadforge.png"
               alt="LoadForge"
               width={70}
               height={48}
@@ -242,21 +242,21 @@ export default function HomePage() {
           </div>
           <div className="flex justify-center items-center flex-wrap gap-4 md:gap-6">
             <Image
-              src="/images/logo-rspec.png"
+              src="/testing-edge/images/logo-rspec.png"
               alt="RSpec"
               width={68}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-playwright.png"
+              src="/testing-edge/images/logo-playwright.png"
               alt="Playwright"
               width={52}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-jest.jpeg"
+              src="/testing-edge/images/logo-jest.jpeg"
               alt="Jest"
               width={48}
               height={48}
@@ -264,14 +264,14 @@ export default function HomePage() {
             />
 
             <Image
-              src="/images/logo-xray.png"
+              src="/testing-edge/images/logo-xray.png"
               alt="Xray"
               width={48}
               height={48}
               className="max-h-12 w-auto"
             />
             <Image
-              src="/images/logo-jmeter.png"
+              src="/testing-edge/images/logo-jmeter.png"
               alt="JMeter"
               width={70}
               height={48}
@@ -279,7 +279,7 @@ export default function HomePage() {
             />
 
             <Image
-              src="/images/logo-axe.png"
+              src="/testing-edge/images/logo-axe.png"
               alt="Axe-core"
               width={48}
               height={48}
