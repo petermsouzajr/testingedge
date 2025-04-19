@@ -3,7 +3,7 @@
 const nextConfig = {
   // !! IMPORTANT: Replace this with your ACTUAL Testing Edge Vercel deployment URL !!
   assetPrefix: 'https://testingedge-peter-souzas-projects.vercel.app',
-  basePath: '/testing-edge',
+  basePath: '/testingedge',
 
   // Required for Vercel deployment with rewrites/server actions
   output: 'standalone',
