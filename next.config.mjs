@@ -6,7 +6,7 @@ const nextConfig = {
   basePath: '/testing-edge',
 
   // Required for Vercel deployment with rewrites/server actions
-  output: 'standalone',
+  // output: 'standalone',
 
   images: {
     // Add any remote patterns you might need for images here
