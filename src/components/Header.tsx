@@ -77,7 +77,7 @@ export default function Header() {
             {' '}
             {/* Reset state on click */}
             <Image
-              src="/testing-edge/images/logo.png" // Adjust path if needed
+              src="/images/logo.png"
               alt="Testing Edge Logo"
               width={130} // Adjust size as needed
               height={35} // Adjust size as needed
